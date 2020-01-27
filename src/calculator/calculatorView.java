@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 package calculator;
+
 import calculator.Funciones;
+
 /**
  *
  * @author admin
  */
 public class calculatorView extends javax.swing.JFrame {
-    Funciones f = new Funciones(WIDTH, WIDTH, PROPERTIES, WIDTH);
+
+    Funciones f = new Funciones();
     /**
      * Creates new form calculatorView
      */
-    Double opOne;
-    int type;
     public calculatorView() {
         initComponents();
     }
@@ -225,6 +226,11 @@ public class calculatorView extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton1.setText("00");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton2.setText("DEL");
@@ -359,88 +365,114 @@ public class calculatorView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SixActionPerformed
-    Screen.setText(Screen.getText()  + "6");
+        Screen.setText(Screen.getText() + "6");
     }//GEN-LAST:event_SixActionPerformed
 
     private void OneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OneActionPerformed
-    Screen.setText(Screen.getText() + "1");
+        Screen.setText(Screen.getText() + "1");
     }//GEN-LAST:event_OneActionPerformed
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
         // TODO add your handling code here:
-    Screen.setText("");
+        Screen.setText("");
     }//GEN-LAST:event_ResetActionPerformed
 
     private void TwoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TwoActionPerformed
-    Screen.setText(Screen.getText() + "2");
+        Screen.setText(Screen.getText() + "2");
     }//GEN-LAST:event_TwoActionPerformed
 
     private void ThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThreeActionPerformed
-    Screen.setText(Screen.getText() + "3");
+        Screen.setText(Screen.getText() + "3");
     }//GEN-LAST:event_ThreeActionPerformed
 
     private void FourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FourActionPerformed
-    Screen.setText(Screen.getText() + "4");
+        Screen.setText(Screen.getText() + "4");
     }//GEN-LAST:event_FourActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-    Screen.setText(Screen.getText() + "5");
+        Screen.setText(Screen.getText() + "5");
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void SevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SevenActionPerformed
-    Screen.setText(Screen.getText() + "7");
+        Screen.setText(Screen.getText() + "7");
     }//GEN-LAST:event_SevenActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-    Screen.setText(Screen.getText() + "8");
+        Screen.setText(Screen.getText() + "8");
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void NineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NineActionPerformed
-    Screen.setText(Screen.getText() + "9");
+        Screen.setText(Screen.getText() + "9");
     }//GEN-LAST:event_NineActionPerformed
 
     private void ZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZeroActionPerformed
-    Screen.setText(Screen.getText() + "0");
+        Screen.setText(Screen.getText() + "0");
     }//GEN-LAST:event_ZeroActionPerformed
 
     private void PeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PeriodActionPerformed
-        String period= ".";
+        String period = ".";
         String text = Screen.getText();
         //if (period) {
-            
+
         //}
         Screen.setText(Screen.getText() + ".");
     }//GEN-LAST:event_PeriodActionPerformed
 
     private void MultiplicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MultiplicationActionPerformed
-     Screen.setText(Screen.getText() + "*");
+        Screen.setText(Screen.getText() + "*");
     }//GEN-LAST:event_MultiplicationActionPerformed
 
     private void SumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SumActionPerformed
-    opOne = Double.parseDouble(Screen.getText());
-    Screen.setText("");
-    secondScreen.setText(Double.toString(opOne));
-    
+        //If second screen (label) is empty then we just add the text there and erease the text in the Screen(TxT)
+        f.setisFound(secondScreen.getText());
+        if (secondScreen.getText().equals("")) {
+            secondScreen.setText(Screen.getText() + " +");
+            Screen.setText("");
+        } else if (f.getisFound() == 1) {
+            //If second screen have something, calc sums it, and clean the secondScreen
+            f.setRemoveSymbol(secondScreen.getText(),"+");
+            secondScreen.setText(f.getRemoveSymbol());
+            f.setSum(Double.parseDouble(secondScreen.getText()), Double.parseDouble(Screen.getText()));
+            secondScreen.setText("");
+            Screen.setText(Double.toString(f.getSum()));
+        }
     }//GEN-LAST:event_SumActionPerformed
 
     private void MinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusActionPerformed
         // TODO add your handling code here:
-    Screen.setText(Screen.getText() + "-");
+        //If second screen (label) is empty then we just add the text there and erease the text in the Screen(TxT)
+        f.setisFound(secondScreen.getText());
+        if (secondScreen.getText().equals("")) {
+            secondScreen.setText(Screen.getText() + " -");
+            Screen.setText("");
+        } else if (f.getisFound() == 2) {
+            //If second screen have something, calc subtract it, and clean the secondScreen
+            f.setRemoveSymbol(secondScreen.getText(),"-");
+            secondScreen.setText(f.getRemoveSymbol());
+            f.setMinus(Double.parseDouble(secondScreen.getText()), Double.parseDouble(Screen.getText()));
+            secondScreen.setText("");
+            Screen.setText(Double.toString(f.getMinus()));
+        }
     }//GEN-LAST:event_MinusActionPerformed
 
     private void DivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DivisionActionPerformed
         // TODO add your handling code here:
-    Screen.setText(Screen.getText() + "/");
+        Screen.setText(Screen.getText() + "/");
     }//GEN-LAST:event_DivisionActionPerformed
 
     private void EqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EqualActionPerformed
-     double operation = Double.parseDouble(Screen.getText());
-     Screen.setText(Double.toString(operation));
+        double operation = Double.parseDouble(Screen.getText());
+        Screen.setText(Double.toString(operation));
     }//GEN-LAST:event_EqualActionPerformed
 
     private void ScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ScreenActionPerformed
 
     }//GEN-LAST:event_ScreenActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Screen.setText(Screen.getText() + "00");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
