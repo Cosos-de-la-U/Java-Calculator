@@ -1,2 +1,3 @@
-### Java Calculator fully working with OOP
-### made by Raúl Peñate 2020.
+### Java Calculator 
+Working with OOP, simple design.
+Made by Raúl Peñate,January 28, 2020.
