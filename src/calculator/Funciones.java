@@ -5,17 +5,14 @@
  */
 package calculator;
 
-import calculator.calculatorView;
-
 /**
  *
- * @author admin
+ * @author Raul Penate
  */
 public class Funciones {
-
-    private double sum, minus, multiplication, division;
-    private int operation, isFound;
-    private String removeSymbol,secondScreenData;
+    private double sum, minus, multiplication, division,squareRoot;
+    private int isFound,periodCounter;
+    private String removeSymbol;
 
     public int getisFound() {
         return isFound;
@@ -51,15 +48,25 @@ public class Funciones {
     public String getRemoveSymbol() {
         return removeSymbol;
     }
-    
-    //Second Screen data, to save the recent operations, maybe in the future, not necessary
-    /*public void setSecondScreendData(String firstScreen, String secondScreen){
-    secondScreenData = secondScreen + firstScreen;
+    //Count every peroid in the text.
+    public int getPeriodCounter(){
+        return periodCounter;
     }
     
-    public String getSecondScreeData(){
-    return secondScreenData;
-    }*/
+    public void setPeriodCounter(String string){
+        char [] arrayChain;
+        arrayChain = string.toCharArray();
+        if (!string.equals("")) {
+           for (int i = 0; i < string.length(); i++) {
+            if (arrayChain[i] == '.') {
+                this.periodCounter++;
+            }else{
+            periodCounter = 0;
+            }
+        } 
+        }
+        
+    }
     
     public double getSum() {
         return sum;
@@ -81,16 +88,23 @@ public class Funciones {
         return multiplication;
     }
 
-    public void setMultiplication(double multiplication) {
-        this.multiplication = multiplication;
+    public void setMultiplication(double valueOne, double valueTwo) {
+        this.multiplication = valueOne * valueTwo;
     }
 
     public double getDivision() {
         return division;
     }
 
-    public void setDivision(double division) {
-        this.division = division;
+    public void setDivision(double valueOne, double valueTwo) {
+        this.division = valueOne / valueTwo;
     }
-
+    
+    public double getSquareRoot(){
+    return this.squareRoot;
+    }
+    
+    public void setSquareRoot(double valueOne){
+        this.squareRoot = Math.sqrt(valueOne);
+    }
 }
